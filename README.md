@@ -9,39 +9,37 @@ Attention: this plugin work only for iOS, for androdi, please refer to [flutter_
 
 ## Getting Started
 
+## How to use
+
+  1. In the screen, prepare two callbacks:
+     <br/>typedef ScreenshotCallback = void Function();<br/>
+     typedef ScreenRecordCallback = void Function(bool);
+    
+     ScreenshotCallback will be used to get the screenshot event.
+     ScreenRecordCallback will be used to get the screen recording event, recording is on or off will be passed back.(Screen recording detector only worked above iOS 11.0)
+  2. Get IosInsecureScreenDetector instance.
+  3. Initialize plugin in initState()
+  4. Add your callbacks to IosInsecureScreenDetector.
+  5. Dispose plugin in dispose() when you exit the screen.
+  6. Also you can get the current screen recording status with isCaptured()
+
+## Apis
   /// Callbacks that contain the actions after event detected.
-  ScreenshotCallback? _onScreenshotCallback;
+  <br/>ScreenshotCallback? _onScreenshotCallback;<br/>
   ScreenRecordCallback? _onScreenRecordCallback;
 
-  /// Create detector and initialize the observers on iOS system.
-  IosInsecureScreenDetector() {
-    initialize();
-  }
-
-  /// Initialize screenshot and screen record observers
-  Future<void> initialize() async {
-    _channel.setMethodCallHandler(_handleMethod);
-    await _channel.invokeMethod('initialize');
-  }
+  /// Initialize screenshot and screen record notification observers
+  <br/>Future<void> initialize()<br/>
 
   /// Add callback actions when screenshot or screen record events received.
-  void addListener(ScreenshotCallback screenshotCallback, ScreenRecordCallback screenRecordCallback) {
-    _onScreenshotCallback = screenshotCallback;
-    _onScreenRecordCallback = screenRecordCallback;
-  }
+  <br/>void addListener(ScreenshotCallback screenshotCallback, ScreenRecordCallback screenRecordCallback)<br/>
 
   /// Remove listeners
-  void removeListener() {
-    _onScreenshotCallback = null;
-    _onScreenRecordCallback = null;
-  }
+  <br/>void removeListener()<br/>
 
   /// Get the recording status of current screen
-  Future<bool> isCaptured() async => await _channel.invokeMethod('isCaptured');
+  <br/>Future<bool> isCaptured()<br/>
 
   /// Remove notification observer
-  Future<void> dispose() async {
-    removeListener();
-    await _channel.invokeMethod('dispose');
-  }
+  <br/>Future<void> dispose()<br/>
 
