@@ -1,6 +1,6 @@
 # ios_insecure_screen_detector
 
-A flutter plugin to detect the screenshot and screen recording on iOS.
+A flutter plugin to detect the screenshot and screen recording on iOS. For android, please refer to flutter_windowmanager.
 
 ## Getting Started
 
