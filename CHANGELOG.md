@@ -4,4 +4,4 @@
 
 ## 0.0.2
 
-* Fix crash on iOS below version 11.0
+* 1. Fix crash on iOS below version 11.0; 2. Move detector constructor into single instance.
