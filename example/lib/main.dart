@@ -12,13 +12,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
-  late IosInsecureScreenDetector _insecureScreenDetector;
+  IosInsecureScreenDetector _insecureScreenDetector = IosInsecureScreenDetector();
   bool _isCaptured = false;
 
   @override
   void initState() {
     super.initState();
-    _insecureScreenDetector = IosInsecureScreenDetector();
+    _insecureScreenDetector.initialize();
     _insecureScreenDetector.addListener(
       () {
         showDialog(
@@ -37,6 +37,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         });
       }
     );
+
+    /// Check if current screen is captured.
     isCaptured();
   }
 

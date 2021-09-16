@@ -8,12 +8,22 @@ class IosInsecureScreenDetector {
   static const MethodChannel _channel =
     const MethodChannel('staking_power/ios_insecure_screen_detector');
 
+  static IosInsecureScreenDetector get instance => _getInstance();
+  static IosInsecureScreenDetector? _instance;
+
+  factory IosInsecureScreenDetector() => _getInstance();
+
+  IosInsecureScreenDetector._internal();
+
+  static IosInsecureScreenDetector _getInstance() {
+    if(null == _instance) {
+      _instance = IosInsecureScreenDetector._internal();
+    }
+    return _instance!;
+  }
+
   ScreenshotCallback? _onScreenshotCallback;
   ScreenRecordCallback? _onScreenRecordCallback;
-
-  IosInsecureScreenDetector() {
-    initialize();
-  }
 
   /// Initialize screenshot and screen record observers
   Future<void> initialize() async {
@@ -44,18 +54,18 @@ class IosInsecureScreenDetector {
 
   Future<dynamic> _handleMethod(MethodCall call) async {
     switch(call.method) {
-      case 'onScreenshotCallback':
-        if(null != _onScreenshotCallback) {
+      case 'onScreenshotCallback': {
+        if (null != _onScreenshotCallback) {
           _onScreenshotCallback!();
         }
-      break;
+      } break;
 
-      case 'onScreenRecordCallback':
-        bool isCaptured = call.arguments;
-        if(null != _onScreenRecordCallback) {
+      case 'onScreenRecordCallback': {
+        dynamic isCaptured = call.arguments;
+        if (null != _onScreenRecordCallback && isCaptured != null && isCaptured is bool) {
           _onScreenRecordCallback!(isCaptured);
         }
-        break;
+      } break;
 
       default:
         throw('method not defined');
