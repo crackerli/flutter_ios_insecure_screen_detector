@@ -71,8 +71,12 @@ public class SwiftIosInsecureScreenDetectorPlugin: NSObject, FlutterPlugin {
       }
       result("dispose")
     } else if(call.method == "isCaptured") {
-      let isCaptured = UIScreen.main.isCaptured
-      result(isCaptured)
+      if #available(iOS 11.0, *) {
+        let isCaptured = UIScreen.main.isCaptured
+        result(isCaptured)
+      } else {
+        result(false)
+      }
     } else {
       result("")
     }
