@@ -1,6 +1,6 @@
 name: ios_insecure_screen_detector
 description: A flutter plugin to detect the screenshot and screen recording on iOS.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/crackerli
 repository: https://github.com/crackerli/flutter_ios_insecure_screen_detector
 
